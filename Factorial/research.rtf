@@ -1,0 +1,960 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf600
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red52\green52\blue52;\red117\green117\blue117;}
+{\*\expandedcolortbl;;\cssrgb\c26667\c26667\c26667;\cssrgb\c53333\c53333\c53333;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs64\fsmilli32400 \cf2 \expnd0\expndtw0\kerning0
+\uc0\u8234 Factorials\uc0\u8236 \
+
+\itap1\trowd \taflags4 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth24931\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt200 \clpadl200 \clpadb200 \clpadr200 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs36 \cf2 The factorial of a given number is that given number times itself minus one, times itself minus two, all the way down to one. So the factorial of five is 5 * 4 * 3 * 2 * 1, while the factorial of one is 1. When using the factorial of a number, it is customary to write that number, then a "!" directly after, so the factorial of five can be written like this: 5!, and the factorial of one like this: 1!. Factorials are not used vary much, besides in probability in statistics and Taylor functions in calculus. There is currently many methods to solve factorials; some are more accurate or faster then others. First, I will show you an efficient way to half the amount of multiplying that you have to do in a factorial, then I will show you how to fourth the multiplying. I would not recommend finding the factorial using only a fourth of the multiplication to most readers, because it is extremely intensive. Now, to the numbers.\
+\uc0\u8234 \'a0\uc0\u8236 \
+\uc0\u8234 To half the multiplication with even numbers, you will end up with the number, divided by two, factors. The first factor will be the number you are taking the factorial of, then the next will be that number plus that number minus two. The next number will be the previous number plus the lasted added number minus two. You are done when\'a0the last number you added was two.\'a0That probably didn't make much sense, so let me give you an example.\uc0\u8236 \
+\uc0\u8234 \'a0\uc0\u8236 \
+\uc0\u8234 8! = 8 * (8 + 6 = 14) * (14 + 4 = 18) * (18 + 2 = 20)\uc0\u8236 \
+\uc0\u8234 8! = 8 * 14 * 18 * 20\uc0\u8236 \
+\uc0\u8234 \'a0\uc0\u8236 \
+\uc0\u8234 Note that I started with 8, then the first number I added was 6, then 4, then 2, each number added\'a0being two less then the number added before it. This method is equivalent to multiplying the least numbers with the greatest numbers, just with less multiplication, like so:\uc0\u8236 \
+\uc0\u8234 \'a0\uc0\u8236 \
+\uc0\u8234 8! = 1 * 2 * 3 * 4 * 5 * 6 * 7 * 8\uc0\u8236 \
+\uc0\u8234 8! = (1 * 8) * (2 * 7) * (3 * 6) * (4 * 5)\uc0\u8236 \
+\uc0\u8234 8! =\'a08 * 14 * 18 * 20\uc0\u8236 \
+\uc0\u8234 \'a0\uc0\u8236 \
+\uc0\u8234 But what if the number is odd? If the number is odd, the adding is the same, as in you subtract two each time, but\'a0you stop at three. The number of factors however changes. If you divide the number by two, you will end up with some number ending in\'a0point five. The reason is that if we times the ends together, that we are left with the middle number. Basically, this can all be solved by solving for the number divided by two, rounded down to the nearest whole number, factors and then adding another factor to our list of factors that is equivalent to the number divided by two, rounded up. This probably didn't make much sense either to minds without a mathematical background, so let me do an example:\uc0\u8236 \
+\uc0\u8234 \'a0\uc0\u8236 \
+\uc0\u8234 9! = 9 * (9 + 7 = 16) * (16 + 5 = 21) * (21 + 3 = 24) * (roundUp(9/2) = 5)\uc0\u8236 \
+\uc0\u8234 9! = 9 * 16 * 21 * 24 * 5\uc0\u8236 \
+\uc0\u8234 \'a0\uc0\u8236 \
+\uc0\u8234 Note that if we wrote out every number from nine to zero, that five would be in the middle. If you don't like this method, you could also just take the factorial of the even number before the odd (eight in this case) and times it by the odd number (i.e. 9! = 8! * 9).\uc0\u8236 \
+\uc0\u8234 \'a0\uc0\u8236 \
+\uc0\u8234 Awesome! So that's how you solve a factorial doing only half of the multiplication. Now onto doing factorials with a fourth of the multiplication. Before I get to in depth, let me warn you now. \ul This method is not for the faint in math\ulnone , or heart for that matter. To begin, let me introduce some new terms and types of functions that I came up with.\uc0\u8236 \
+\uc0\u8234 \'a0\uc0\u8236 \
+\uc0\u8234 The\'a0\ul tree\ulnone  is the number that you are taking the factorial of. This means that the if I see "5!" that the tree is "5."\uc0\u8236 \
+\uc0\u8234 A\'a0\ul branch\ulnone  is a list of products of the least numbers and the greatest numbers in another list, or a list of every number up to a given number (the definition of a factorial), with the smallest numbers first.\uc0\u8236 \
+\uc0\u8234 A \ul leaf\ulnone  is a list of differences of one number to the next in another list, when the differences are not zero.\uc0\u8236 \
+\uc0\u8234 A \ul stem\ulnone  is the first number of a leaf, or branch.\uc0\u8236 \
+\uc0\u8234 The\'a0\ul root\ulnone  is the factorial of the tree.\uc0\u8236 \
+\uc0\u8234 \'a0\uc0\u8236 \
+\uc0\u8234 Lets run through an example to solidify these definitions in our mind.\uc0\u8236 \
+\uc0\u8234 \'a0\uc0\u8236 \
+\uc0\u8234 Tree: 8\uc0\u8236 \
+\uc0\u8234 ---Branch 1: 1, 2, 3, 4, 5, 6, 7, 8 (Stem = 1)\uc0\u8236 \
+\uc0\u8234 ------Leaf 1: 1, 1, 1, 1, 1, 1, 1 (Stem = 1)\uc0\u8236 \
+\uc0\u8234 ---Branch 2: 8, 14, 18, 20 (Stem = 2)\uc0\u8236 \
+\uc0\u8234 ------Leaf 1: 6, 4, 2 \'a0(Stem = 6)\uc0\u8236 \
+\uc0\u8234 ------Leaf 2: 2, 2 (Stem = 2)\uc0\u8236 \
+\uc0\u8234 ---Branch 3: 160, 252 (Stem = 160)\uc0\u8236 \
+\uc0\u8234 ------Leaf 1: 92 (Stem = 92)\uc0\u8236 \
+\uc0\u8234 ---Root:\'a0 40320\uc0\u8236 \
+\uc0\u8234 \'a0\uc0\u8236 \
+\uc0\u8234 Phew, that was a lot of numbers. If you will notice, most people\'a0find the root\'a0by multiplying the first branch of the tree together, I earlier showed you how a shortcut to the second branch, and now I will be showing you a shortcut to the third branch. It is important to note that as\'a0the tree\'a0gets bigger, so does the number of values in the branches; and likewise, the number of branches themselves. At this point I would like to give another vocabulary word and\'a0point out that in factorials,\'a0the first, second, and third\'a0branches all\'a0have\'a0a\'a0leaves, \ul the last of which always ends a list of the same number repeated a couple times.\ulnone \'a0I call the number that the last branch solely consists of repetitions of\'a0the \ul essence\ulnone  of that branch.\uc0\u8236 \
+\uc0\u8234 \'a0\uc0\u8236 \
+\uc0\u8234 To help us solve for the third branch, we will have to know how to solve branches given stems. The\'a0process is like solving a table, and is like functions in the\'a0respect that the x value is the position in the branch, and the y value is the value at that x position in the branch.\'a0To do this method, you need the stem of the branch you want to solve, and the stem of every leaf of that branch, up until\'a0the essence of the branch. Then, you take the stem of the branch, add the stem of the first leaf to it, and you have your second value in your branch. Then you take the stem of the third branch, and add it to the stem of the first leaf, to get the second value in the first leaf. Then you add the second value in the branch to the second value in the first leaf to get your third value in your branch. You repeat this until you have solved for as many values as you need from the branch. Note that if you run out of stems, just use the essence of the branch. Let me solve this random branch.\uc0\u8236 \
+\uc0\u8234 \'a0\uc0\u8236 \
+\uc0\u8234 The branch stem is: 129\uc0\u8236 \
+\uc0\u8234 The leaf stems are: 284, 84, 24\uc0\u8236 \
+\uc0\u8234 With an essence of 24.\uc0\u8236 \
+\uc0\u8234 \'a0\uc0\u8236 \
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrs\brdrw20\brdrcf3 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx1440
+\clvertalt \clshdrawnil \clwWidth1700\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2880
+\clvertalt \clshdrawnil \clwWidth1720\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth1656\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx5760
+\clvertalt \clshdrawnil \clwWidth1889\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx7200
+\clvertalt \clshdrawnil \clwWidth1870\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0129\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0(129+284) = 413\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0(413+368) = 781\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0(781+476) = 1257\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0(1257+608) = 1865\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0(1865+764) =2629\uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx1440
+\clvertalt \clshdrawnil \clwWidth1700\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2880
+\clvertalt \clshdrawnil \clwWidth1720\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth1656\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx5760
+\clvertalt \clshdrawnil \clwWidth1889\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx7200
+\clvertalt \clshdrawnil \clwWidth1870\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0284\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 (284+84) = 368\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0(368+108) = 476\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0(476+132) = 608\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0(608+156)\'a0 = 764\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx1440
+\clvertalt \clshdrawnil \clwWidth1700\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2880
+\clvertalt \clshdrawnil \clwWidth1720\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth1656\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx5760
+\clvertalt \clshdrawnil \clwWidth1889\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx7200
+\clvertalt \clshdrawnil \clwWidth1870\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a084\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 (84+24)\'a0 = 108\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0(108+24)\'a0\'a0 = 132\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0(132+24) = 156\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrb\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx1440
+\clvertalt \clshdrawnil \clwWidth1700\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2880
+\clvertalt \clshdrawnil \clwWidth1720\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth1656\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx5760
+\clvertalt \clshdrawnil \clwWidth1889\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx7200
+\clvertalt \clshdrawnil \clwWidth1870\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a024\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a024\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a024\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell \lastrow\nestrow
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \
+\uc0\u8234 That was lots of addition! These tables for solving branches using stems are the \ul KEY STONE\ulnone  to solving the third branch. If there is great enough demand expressed to me, I will make a YouTube video demonstrating how to do these in real time, and elaborate on them more here. For now, I'm moving on.\uc0\u8236 \
+\uc0\u8234 \'a0\uc0\u8236 \
+\uc0\u8234 Before we go waist deep into the river, lets get our toes wet. I'm going to\'a0 explain the general process of solving for the third branch of a tree. First, you can only use this method on even trees.\'a0To find an odd tree, just find the factorial of the even before and times it by the odd tree.\'a0The number of\'a0values in the\'a0third tree that is inside the third tree is the\'a0tree divided by four. Note that this means that every other even number you will get a number ending in point five. If this happens, round down to the nearest whole number and add the\'a0tree divided by four rounded up, times that number plus the tree divided by two. There is a explanation for this, but trust me on this one, you don't want to know. If you really can't live without it, call me.\uc0\u8236 \
+\uc0\u8234 \'a0\uc0\u8236 \
+\uc0\u8234 Now that we have a nice even number of values\'a0to solve for, lets solve them! To find the values, we have to create a branch-stem table for each value, and solve it for the correct value. These table happen to always have three stems and an essence.\'a0But where do we get the stems and the essence\'a0for branch-stem tables from? Well, we could memorize the stems for each value, but how many stems and essences\'a0would we need to memorize, especially if we started getting thousands of\'a0values in the third branch? That just wouldn't be feasible, so I came up with three branch-stem tables that each yield\'a0a stem to a branch-stem of a value, and a method to find the essence of the branch-stem of the value.\uc0\u8236 \
+\uc0\u8234 \'a0\uc0\u8236 \
+\uc0\u8234 Well that's the theory. If you don't understand, don't worry, I will show an example later. For now, lets\'a0learn the stems of the branch-stem tables for solving the stems of the branch-stem tables of the values. Note that the last\'a0leaf in the branch-stem tables have two numbers, that's because the leafs are not purely the essence, but\'a0have a stem of the\'a0first number, then consist of the second number (the essence) from then on out.\uc0\u8236 \
+\uc0\u8234 \'a0\uc0\u8236 \
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrs\brdrw20\brdrcf3 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth2220\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2880
+\clvertalt \clshdrawnil \clwWidth2220\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx5760
+\clvertalt \clshdrawnil \clwWidth2220\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 Stem
+\fs30 \sub 1
+\fs36 \nosupersub \uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0Stem
+\fs30 \sub 2
+\fs36 \nosupersub \uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0Stem
+\fs30 \sub 3
+\fs36 \nosupersub \uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth2220\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2880
+\clvertalt \clshdrawnil \clwWidth2220\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx5760
+\clvertalt \clshdrawnil \clwWidth2220\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0160\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0140\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a064\uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth2220\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2880
+\clvertalt \clshdrawnil \clwWidth2220\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx5760
+\clvertalt \clshdrawnil \clwWidth2220\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a092\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0112\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a060\uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth2220\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2880
+\clvertalt \clshdrawnil \clwWidth2220\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx5760
+\clvertalt \clshdrawnil \clwWidth2220\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0736\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0356\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a068, 44\uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth2220\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2880
+\clvertalt \clshdrawnil \clwWidth2220\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx5760
+\clvertalt \clshdrawnil \clwWidth2220\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0476\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a016, 108\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrb\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth2220\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2880
+\clvertalt \clshdrawnil \clwWidth2220\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx5760
+\clvertalt \clshdrawnil \clwWidth2220\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0352, 216\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell \lastrow\nestrow
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \
+\uc0\u8234 Essence =\'a0position-of-value-in-third-branch\'a0* 12\uc0\u8236 \
+\uc0\u8234 \'a0\uc0\u8236 \
+\uc0\u8234 Now that we know these things we can solve for any value in the third branch of any tree. Let me run through an example. Lets find every value in the third branch of eighteen.\uc0\u8236 \
+\uc0\u8234 \'a0\uc0\u8236 \
+\uc0\u8234 Tree = 18\uc0\u8236 \
+\uc0\u8234 Branch
+\fs30 \sub 3
+\fs36 \nosupersub  = \{ \}\uc0\u8236 \
+\uc0\u8234 \'a0\uc0\u8236 \
+\uc0\u8234 Number of values in Branch
+\fs30 \sub 3 
+\fs36 \nosupersub = 18/4 = 4.5\uc0\u8236 \
+\uc0\u8234 \'a0\uc0\u8236 \
+\uc0\u8234 This means that we will need to add 18 divided by 4 rounded up,\'a0times that number plus 18 divided by 2, which is 5 times 14, and that equals 70. Remember 70, we will add it to our list of factors at the end. Now, we need to solve for the other four values in the third branch, and to do this we need the all the stems and essences of the branch-stem tables for each of the four values. Lets solve the three branch-stems given above to find the stems. Note that I will insert numbers between the table name and the branch.\uc0\u8236 \
+\uc0\u8234 \'a0\uc0\u8236 \
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrs\brdrw20\brdrcf3 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1066\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx617
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx1234
+\clvertalt \clshdrawnil \clwWidth944\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx1851
+\clvertalt \clshdrawnil \clwWidth883\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2468
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx3085
+\clvertalt \clshdrawnil \clwWidth1111\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx3702
+\clvertalt \clshdrawnil \clwWidth880\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4937
+\clvertalt \clshdrawnil \clwWidth880\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx5554
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx6171
+\clvertalt \clshdrawnil \clwWidth1115\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx6788
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx7405
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8022
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0Stem
+\fs30 \sub 1
+\fs36 \nosupersub \uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0Stem
+\fs30 \sub 2
+\fs36 \nosupersub \uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0Stem
+\fs30 \sub 3
+\fs36 \nosupersub \uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1066\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx617
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx1234
+\clvertalt \clshdrawnil \clwWidth944\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx1851
+\clvertalt \clshdrawnil \clwWidth883\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2468
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx3085
+\clvertalt \clshdrawnil \clwWidth1111\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx3702
+\clvertalt \clshdrawnil \clwWidth880\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4937
+\clvertalt \clshdrawnil \clwWidth880\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx5554
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx6171
+\clvertalt \clshdrawnil \clwWidth1115\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx6788
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx7405
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8022
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a01\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a02\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a03\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a04\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a01\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a02\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a03\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a04\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a01\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a02\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a03\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a04\uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1066\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx617
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx1234
+\clvertalt \clshdrawnil \clwWidth944\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx1851
+\clvertalt \clshdrawnil \clwWidth883\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2468
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx3085
+\clvertalt \clshdrawnil \clwWidth1111\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx3702
+\clvertalt \clshdrawnil \clwWidth880\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4937
+\clvertalt \clshdrawnil \clwWidth880\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx5554
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx6171
+\clvertalt \clshdrawnil \clwWidth1115\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx6788
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx7405
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8022
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0160\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0252\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a01080\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a03120\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0140\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0252\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0720\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a01560\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a064\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0124\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0252\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0424\uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1066\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx617
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx1234
+\clvertalt \clshdrawnil \clwWidth944\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx1851
+\clvertalt \clshdrawnil \clwWidth883\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2468
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx3085
+\clvertalt \clshdrawnil \clwWidth1111\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx3702
+\clvertalt \clshdrawnil \clwWidth880\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4937
+\clvertalt \clshdrawnil \clwWidth880\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx5554
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx6171
+\clvertalt \clshdrawnil \clwWidth1115\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx6788
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx7405
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8022
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a092\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0828\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a02040\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0112\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0468\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0840\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a060\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0128\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0172\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1066\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx617
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx1234
+\clvertalt \clshdrawnil \clwWidth944\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx1851
+\clvertalt \clshdrawnil \clwWidth883\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2468
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx3085
+\clvertalt \clshdrawnil \clwWidth1111\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx3702
+\clvertalt \clshdrawnil \clwWidth880\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4937
+\clvertalt \clshdrawnil \clwWidth880\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx5554
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx6171
+\clvertalt \clshdrawnil \clwWidth1115\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx6788
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx7405
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8022
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0736\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a01212\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0356\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0372\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a068\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a044\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1066\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx617
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx1234
+\clvertalt \clshdrawnil \clwWidth944\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx1851
+\clvertalt \clshdrawnil \clwWidth883\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2468
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx3085
+\clvertalt \clshdrawnil \clwWidth1111\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx3702
+\clvertalt \clshdrawnil \clwWidth880\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4937
+\clvertalt \clshdrawnil \clwWidth880\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx5554
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx6171
+\clvertalt \clshdrawnil \clwWidth1115\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx6788
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx7405
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8022
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0476\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a016\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0108\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrb\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1066\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx617
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx1234
+\clvertalt \clshdrawnil \clwWidth944\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx1851
+\clvertalt \clshdrawnil \clwWidth883\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2468
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx3085
+\clvertalt \clshdrawnil \clwWidth1111\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx3702
+\clvertalt \clshdrawnil \clwWidth880\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4937
+\clvertalt \clshdrawnil \clwWidth880\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx5554
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx6171
+\clvertalt \clshdrawnil \clwWidth1115\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx6788
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx7405
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8022
+\clvertalt \clshdrawnil \clwWidth860\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0352\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0216\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell \lastrow\nestrow
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \
+\uc0\u8234 Okay, now lets put those together for the branch-stem tables\'a0of the values. Note that the essence is just the position of the value in the third branch times twelve, as mentioned above. I would also like to stop here for an observation. The tables are titled according to the stem it solves for, and the numbers directly below that are the markers for what value the stem is in. For example, the first stem of the second value would be 252, and the third stem of the fourth value would be 424.\uc0\u8236 \
+\uc0\u8234 \'a0\uc0\u8236 \
+\uc0\u8234 Below are the table constructed with the values. The tittles are what value they solve for, and the numbers below that are the numbers corresponding to the tree you're currently trying to solve. We are trying to solve for the 18'th tree, so be will be looking for a value under the number 18. Note that the values are incremented by two, and that the first value's table always starts with eight, and with every value's table after that, it starts with the value's position times 3. Once again, we are looking under the value of our tree, 18.\uc0\u8236 \
+\uc0\u8234 \'a0\uc0\u8236 \
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrs\brdrw20\brdrcf3 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx1440
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2880
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx5760
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx7200
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0Value
+\fs30 \sub 1
+\fs36 \nosupersub \uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx1440
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2880
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx5760
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx7200
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0(8)\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0(10)\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0(12)\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0(14)\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0(16)\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\ul (18)\ulnone \uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx1440
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2880
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx5760
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx7200
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0160\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0300\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0504\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0784\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a01152\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\ul 1620\ulnone \uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx1440
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2880
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx5760
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx7200
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0140\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0204\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0280\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0368\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0468\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx1440
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2880
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx5760
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx7200
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a064\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a076\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a088\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0100\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrb\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx1440
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2880
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx5760
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx7200
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a012\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a012\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a012\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell \lastrow\nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrs\brdrw20\brdrcf3 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx1440
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2880
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx5760
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx7200
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0Value
+\fs30 \sub 2
+\fs36 \nosupersub \uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx1440
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2880
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx5760
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx7200
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0(8)\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0(10)\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0(12)\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0(14)\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0(16)\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\ul (18)\ulnone \uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx1440
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2880
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx5760
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx7200
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0252\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0504\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0880\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a01404\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a02100\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\ul 2992\ulnone \uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx1440
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2880
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx5760
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx7200
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0252\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0376\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0524\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0696\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0892\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx1440
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2880
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx5760
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx7200
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0124\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0148\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0172\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0196\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrb\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx1440
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2880
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx5760
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx7200
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a024\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a024\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a024\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell \lastrow\nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrs\brdrw20\brdrcf3 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2160
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx6480
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0Value
+\fs30 \sub 3
+\fs36 \nosupersub \uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2160
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx6480
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0(12)\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0(14)\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0(16)\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\ul (18)\ulnone \uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2160
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx6480
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a01080\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a01800\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a02772\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\ul 4032\ulnone \uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2160
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx6480
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0720\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0972\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a01260\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2160
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx6480
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0252\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0288\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrb\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx2160
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx6480
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a036\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell \lastrow\nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrs\brdrw20\brdrcf3 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0Value
+\fs30 \sub 4
+\fs36 \nosupersub \uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0(16)\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\ul (18)\ulnone \uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a03120\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\ul 4680\ulnone \uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a01560\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0424\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell \nestrow
+
+\itap2\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrs\brdrw20\brdrcf3 \trbrdrb\brdrs\brdrw20\brdrcf3 \trbrdrr\brdrs\brdrw20\brdrcf3 
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth1200\clftsWidth3 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a048\uc0\u8236 \nestcell 
+\pard\intbl\itap2\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \nestcell \lastrow\nestrow
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf2 \uc0\u8234 \'a0\uc0\u8236 \
+\uc0\u8234 So there you have it. Our four factors are 1620, 2992, 4032, and 4680. But don't forget, we also have to add 70 to that list because eighteen divided by four is four point five. I explained how we determined it was seventy that we needed to add on above. So our complete list is 70, 1620, 2992, 4032, and 4680. Here are the results:\uc0\u8236 \
+\uc0\u8234 \'a0\uc0\u8236 \
+\uc0\u8234 18! = 18 * 17 * 16 * 15 * 14 * 13 * 12 * 11 * 10 * 9 * 8 * 7 * 6 * 5 * 4 * 3 * 2 * 1\uc0\u8236 \
+\uc0\u8234 18! = 6.40237370573
+\fs30 \sub E
+\fs36 \nosupersub 15\uc0\u8236 \
+\uc0\u8234 \'a0\uc0\u8236 \
+\uc0\u8234 18! = 70 * 1620 * 2992 * 4032 * 4680\uc0\u8236 \
+\uc0\u8234 18! = 6.40237370573
+\fs30 \sub E
+\fs36 \nosupersub 15\uc0\u8236 \
+\uc0\u8234 \'a0\uc0\u8236 \
+\uc0\u8234 Wow, but that was a lot of work to get that third branch. I wouldn't recommend using this in many things, unless you can't run the factorial of a large number by conventional means on a computer, and have to use another method. Another note about this method is that it is possible to use it for odd trees, but it is much easier to just figure the factorial of the even\'a0tree before it and times it by the odd tree.\uc0\u8236 \
+\uc0\u8234 \'a0\uc0\u8236 \
+\uc0\u8234 So, in conclusion, the first method I showed you for finding the first branch was much more efficient by replacing a multiplication problem with a one addition and one subtraction problem, effectively halving the work to find a factorial, and the second method I showed you to find the third branch was extremely inefficient. I hope you learned something from this, and may be able to use the first method I showed you in your math.\uc0\u8236 \cell \lastrow\row
+}
