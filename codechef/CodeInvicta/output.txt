@@ -1,0 +1,6 @@
+6
+5
+5
+0
+
+Time Elapsed: 0.00388 sec

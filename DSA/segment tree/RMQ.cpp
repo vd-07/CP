@@ -28,7 +28,7 @@ int query(int node, int l, int r, int s, int e){
         return seg[node];
     if(s>r||e<l)
         return INT_MAX;
-    int mid=(s+e)/2,a=INT_MAX,b=INT_MAX;
+    int mid=(s+e)/2, a=INT_MAX, b=INT_MAX;
     // if(s>=l&&mid<=r)
     a=query(node*2, l, r, s, mid);
     // if(e<=r&&mid>=l)
