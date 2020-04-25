@@ -1,156 +1,67 @@
-//Author : Vivek Dubey
 #include <bits/stdc++.h>
-using namespace std;
-#define ll long long int
-#define ull unsigned long long int
-#define READ(a) ll a; cin>>a
-#define READ2(a,b) ll a,b; cin>>a>>b
-#define READ3(a,b,c) ll a,b,c; cin>>a>>b>>c
-#define f(i,s,e) for(ll i=s;i<e;i++)
-#define READC(c) char c; cin>>c
-#define READA(a,n) ll a[n]; f(i,0,n) cin>>a[i]
-#define READS(s) string s; cin>>s
-#define FILL(x,y) memset(x,y,sizeof(x))
-#define test ll t; cin>>t; while(t--)
-#define mod 1000000007
+#define int long long int
 #define fastIO ios_base::sync_with_stdio(false);cin.tie(0);cout.tie(0);
-#define pb push_back
-#define pii pair<int,int> 
-#define int128 __int128
-// Guide on how to use 128 bit integer on g++
-// __int128 v=2;
-//     printf("%llu", v);
-struct SegmentTreeNode {
-int maxNum, secondMaxNum;
-void assignLeaf(int value) {
-    maxNum=value;
-    secondMaxNum=-1;
-  }
-void merge(SegmentTreeNode& left, SegmentTreeNode& right) {
-    maxNum=max(left.maxNum, right.maxNum);
-    secondMaxNum=min(max(left.maxNum, right.secondMaxNum), max(left.secondMaxNum, right.maxNum));
-  }
-int getValue() {
-    return maxNum+secondMaxNum;
-  }
-};
-//Segment Tree Template from : https://gist.github.com/kartikkukreja/2e7685e1fc8dbca0001b#file-segment-tree-template-cpp
-// T is the type of input array elements
-// V is the type of required aggregate statistic
-template<class T, class V>
-class SegmentTree {
-  SegmentTreeNode* nodes;
-  int N;
+using namespace std;
 
-public:
-  SegmentTree(T arr[], int N) {
-    this->N = N;
-    nodes = new SegmentTreeNode[getSegmentTreeSize(N)];
-    buildTree(arr, 1, 0, N-1);
-  }
-  
-  ~SegmentTree() {
-    delete[] nodes;
-  }
-  
-  V getValue(int lo, int hi) {
-    SegmentTreeNode result = getValue(1, 0, N-1, lo, hi);
-    return result.getValue();
-  }
-  
-  void update(int index, T value) {
-    update(1, 0, N-1, index, value);
-  }
-  
-  private:	
-  void buildTree(T arr[], int stIndex, int lo, int hi) {
-    if (lo == hi) {
-      nodes[stIndex].assignLeaf(arr[lo]);
-      return;
-    }
-    
-    int left = 2 * stIndex, right = left + 1, mid = (lo + hi) / 2;
-    buildTree(arr, left, lo, mid);
-    buildTree(arr, right, mid + 1, hi);
-    nodes[stIndex].merge(nodes[left], nodes[right]);
-  }
-  
-  SegmentTreeNode getValue(int stIndex, int left, int right, int lo, int hi) {
-    if (left == lo && right == hi)
-      return nodes[stIndex];
-    	
-    int mid = (left + right) / 2;
-    if (lo > mid)
-      return getValue(2*stIndex+1, mid+1, right, lo, hi);
-    if (hi <= mid)
-      return getValue(2*stIndex, left, mid, lo, hi);
-    	
-    SegmentTreeNode leftResult = getValue(2*stIndex, left, mid, lo, mid);
-    SegmentTreeNode rightResult = getValue(2*stIndex+1, mid+1, right, mid+1, hi);
-    SegmentTreeNode result;
-    result.merge(leftResult, rightResult);
-    return result;
-  }
-  
-  int getSegmentTreeSize(int N) {
-    int size = 1;
-    for (; size < N; size <<= 1);
-    return size << 1;
-  }
-  
-  void update(int stIndex, int lo, int hi, int index, T value) {
-    if (lo == hi) {
-    nodes[stIndex].assignLeaf(value);
-    return;
-    }
-    
-    int left = 2 * stIndex, right = left + 1, mid = (lo + hi) / 2;
-    if (index <= mid)
-      update(left, lo, mid, index, value);
-    else
-      update(right, mid+1, hi, index, value);
-    
-    nodes[stIndex].merge(nodes[left], nodes[right]);
-  }
-};
+int **v;
+int n;
+int **dp;
 
-ll power(ll x, ll y, ll p) 
-{ 
-    ll res = 1; 
-    x = x % p;  
-    while (y > 0){ 
-        if (y & 1) 
-            res = (res*x) % p; 
-        y = y>>1; 
-        x = (x*x) % p; 
-    } 
-    return res; 
-} 
-ll modInverse(ll n, ll p) 
-{ 
-    return power(n, p-2, p)%p; 
+int selectMe(int choconum, int lastselection) {
+    cout << choconum << "\n";
+    if(choconum > n)
+        return 0;
+    if(dp[choconum][lastselection] != -1)
+        return dp[choconum][lastselection];
+    int v1 = 0, v2 = 0, v3 = 0;
+    if(lastselection != 0) {
+        v1 = selectMe(choconum + 1, 0);
+    }
+    if(lastselection != 1) {
+        v2 = selectMe(choconum + 1, 1);
+    }
+    if(lastselection != 2) {
+        v3 = selectMe(choconum + 1, 2);
+    }
+    return dp[choconum][lastselection] = v[choconum][lastselection] + max({v1, v2, v3});
+//    cout << v1 << " " << v2 << " " << v3 <<endl;
+//    return max(v1, max(v2, v3));
 }
 
-void solve(){
-	
-}
-
-int main(){
-	#ifndef ONLINE_JUDGE
+int32_t main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */  
+    fastIO
+      #ifndef ONLINE_JUDGE
     // for getting input from input.txt
     freopen("input.txt", "r", stdin);
     // for writing output to output.txt
     //this can be opted out if you want to print the output to the sublime console
     freopen("output.txt", "w", stdout);
-	#endif
-
-
-	test solve();
-
-
-
-	#ifndef ONLINE_JUDGE
+  #endif
+    dp = new int*[100001];
+    for(int i = 0; i <= 100000; i++) {
+      dp[i] = new int[3];
+      dp[i][0] = -1; 
+      dp[i][1] = -1; 
+      dp[i][2] = -1;
+    }
+    cin >> n;
+    int a1, b1, c1;
+    v = new int*[100001];
+    for(int i = 1; i <= n; i++) {
+      v[i] = new int[3];
+        cin >> a1 >> b1 >> c1;
+        v[i][0] = a1;
+        v[i][1] = b1;
+        v[i][2] = c1;
+    }
+    int ans = max({selectMe(1, 0), selectMe(1, 1), selectMe(1, 2)});
+    //cout << max(dp[1][0], max(dp[1][1], dp[1][2])) << endl;
+    cout << ans;
+    #ifndef ONLINE_JUDGE
     cout<<"\nTime Elapsed: " << 1.0*clock() / CLOCKS_PER_SEC << " sec\n";
-	#endif
+  #endif
+    delete []dp;
+    delete []v;
     return 0;
 }

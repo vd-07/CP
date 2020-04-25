@@ -1,0 +1,6 @@
+Case #1: JCJ
+Case #2: IMPOSSIBLE
+Case #3: CJJCC
+Case #4: JC
+
+Time Elapsed: 0.014253 sec
