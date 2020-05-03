@@ -1,2 +1,0 @@
-10
-Time Elapsed: 0.002952 sec
