@@ -25,41 +25,44 @@ using namespace std;
 #define ff first
 #define ss second
 
-int power(int x, int y, int p) 
+int power(int x, int y) 
 { 
     int res = 1; 
-    x = x % p;  
+    // x = x % p;  
     while (y > 0){ 
         if (y & 1) 
-            res = (res*x) % p; 
+            res = (res*x);
         y = y>>1; 
-        x = (x*x) % p; 
+        x = (x*x);
     } 
     return res; 
 } 
-int modInverse(int n, int p) 
-{ 
-    return power(n, p-2, p)%p; 
-}
-vector<int> tower;
-int calc(int n) {
-	return (n*(n+1))+((n*(n-1))/2);
-}
-void solve(){
-	READ(n);
-	int count = 0;
-	while(n > 1) {
-		auto fooo = lower_bound(tower.begin(), tower.end(), n);
-		if(*fooo != n)
-			fooo--;
-		n -= *fooo;
-		count++;
-	}
-	cout << count << "\n";
-	
-}
+// int modInverse(int n, int p) 
+// { 
+//     return power(n, p-2, p)%p; 
+// }
 
-int32_t main(){
+int fn(int bse, int val) {
+    return (bse - 1) * (val);
+}
+void solve() {
+	READ(k);
+    vector<int> freq(10, 1);
+    int length = 1, idx = 0;
+    while(length < k) {
+        length /= freq[idx];
+        freq[idx]++;
+        length *= freq[idx];
+        idx = (idx + 1) % 10;
+    }
+    string s = "codeforces";
+    for(int i = 0; i < 10; i++) {
+        while(freq[i]--)
+            cout << s[i];
+    }
+}
+//https://codeforces.com/blog/entry/78987?#comment-644817
+int32_t main() {
 	#ifndef ONLINE_JUDGE
     // for getting input from input.txt
     freopen("input.txt", "r", stdin);
@@ -67,11 +70,11 @@ int32_t main(){
     //this can be opted out if you want to print the output to the sublime console
     freopen("output.txt", "w", stdout);
 	#endif
-	for(int n = 1; calc(n) <= 1e9; n++) {
-		tower.pb(calc(n));
-	}
-    
-	test solve();
+    fastIO
+
+	solve();
+
+
 
 	#ifndef ONLINE_JUDGE
     cout<<"\nTime Elapsed: " << 1.0*clock() / CLOCKS_PER_SEC << " sec\n";

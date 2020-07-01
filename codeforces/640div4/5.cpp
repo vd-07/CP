@@ -1,7 +1,7 @@
 //Author : Vivek Dubey
 #include <bits/stdc++.h>
 using namespace std;
-#define int long long int
+#define int short int
 #define uint unsigned long long int
 #define READ(a) int a; cin>>a
 #define sz(a) (int)((a).size())
@@ -41,22 +41,28 @@ int modInverse(int n, int p)
 { 
     return power(n, p-2, p)%p; 
 }
-vector<int> tower;
-int calc(int n) {
-	return (n*(n+1))+((n*(n-1))/2);
-}
-void solve(){
-	READ(n);
-	int count = 0;
-	while(n > 1) {
-		auto fooo = lower_bound(tower.begin(), tower.end(), n);
-		if(*fooo != n)
-			fooo--;
-		n -= *fooo;
-		count++;
-	}
-	cout << count << "\n";
-	
+int a[8001], n;
+bool isPresent[8001];
+long pref[8001];
+void solve() {
+    cin >> n;
+    for(int i = 1; i <= 8000; i++) isPresent[i] = false;
+    pref[0] = 0;
+    for(int i = 1 ; i <= n; i++) {
+        cin >> a[i];
+        pref[i] = a[i] + pref[i - 1];
+    }    
+    for(int i = 1; i <= n; i++) {
+        for(int j = i + 1; (j <= n) && (pref[j] - pref[i - 1] <= n); j++) {
+            isPresent[pref[j] - pref[i - 1]] = true;
+        }
+    }
+    int ans = 0;
+    for(int i = 1; i <= n; i++) {
+        if(isPresent[a[i]])
+            ans++;
+    }
+    cout << ans << "\n";
 }
 
 int32_t main(){
@@ -67,11 +73,11 @@ int32_t main(){
     //this can be opted out if you want to print the output to the sublime console
     freopen("output.txt", "w", stdout);
 	#endif
-	for(int n = 1; calc(n) <= 1e9; n++) {
-		tower.pb(calc(n));
-	}
-    
+
+
 	test solve();
+
+
 
 	#ifndef ONLINE_JUDGE
     cout<<"\nTime Elapsed: " << 1.0*clock() / CLOCKS_PER_SEC << " sec\n";

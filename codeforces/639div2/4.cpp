@@ -43,7 +43,7 @@ int modInverse(int n, int p)
 }
 
 void solve(){
-	cout << "vd";
+	
 	
 }
 

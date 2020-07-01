@@ -1,7 +1,7 @@
 //Author : Vivek Dubey
 #include <bits/stdc++.h>
 using namespace std;
-#define int long long int
+// #define int long long int
 #define uint unsigned long long int
 #define READ(a) int a; cin>>a
 #define sz(a) (int)((a).size())
@@ -21,60 +21,56 @@ using namespace std;
 #define fastIO ios_base::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #define pb push_back
 #define pii pair<int,int> 
-#define int128 __int128
-#define ff first
-#define ss second
-
-int power(int x, int y, int p) 
-{ 
-    int res = 1; 
-    x = x % p;  
-    while (y > 0){ 
-        if (y & 1) 
-            res = (res*x) % p; 
-        y = y>>1; 
-        x = (x*x) % p; 
-    } 
-    return res; 
-} 
-int modInverse(int n, int p) 
-{ 
-    return power(n, p-2, p)%p; 
-}
-vector<int> tower;
-int calc(int n) {
-	return (n*(n+1))+((n*(n-1))/2);
-}
-void solve(){
-	READ(n);
-	int count = 0;
-	while(n > 1) {
-		auto fooo = lower_bound(tower.begin(), tower.end(), n);
-		if(*fooo != n)
-			fooo--;
-		n -= *fooo;
-		count++;
-	}
-	cout << count << "\n";
-	
+vector<int> perfects;
+int n, sum = 0;
+void solve() {
+    cin >> n;
+    int a[n];
+    for(int i = 0; i < n; i++) cin >> a[i];
+    int sum = 0;
+    unordered_map<int, int> ispresent;
+    int count = 0;
+    ispresent[0] = 1;
+    int curr = 0, maxsum = INT_MIN;
+    for(int i = 0; i < n; i++) {
+        sum += a[i];
+        curr += a[i];        
+        maxsum = max(curr, maxsum);
+        if(curr < 0) 
+            curr = 0;
+        for(int j = 0; perfects[j] <= maxsum; j++) {
+            // if(a[i] == perfects[j]) count++;
+            if(ispresent.find(sum - perfects[j]) != ispresent.end())
+            count += ispresent[sum - perfects[j]];
+        }
+        ispresent[sum]++;
+    }
+    cout << count << "\n";
 }
 
-int32_t main(){
-	#ifndef ONLINE_JUDGE
+int main(){
+    for(int i = 0; i * i <= 1e7 + 20; i++) {
+        perfects.pb(i * i);
+    }
+    #ifndef ONLINE_JUDGE
     // for getting input from input.txt
     freopen("input.txt", "r", stdin);
     // for writing output to output.txt
     //this can be opted out if you want to print the output to the sublime console
     freopen("output.txt", "w", stdout);
-	#endif
-	for(int n = 1; calc(n) <= 1e9; n++) {
-		tower.pb(calc(n));
-	}
-    
-	test solve();
+    #endif
+    fastIO
+    int t;
+    cin >> t;
+    for(int i = 1; i <= t; i++) {
+        cout << "Case #"<< i << ": ";
+        solve();
+    }
 
-	#ifndef ONLINE_JUDGE
-    cout<<"\nTime Elapsed: " << 1.0*clock() / CLOCKS_PER_SEC << " sec\n";
-	#endif
+    
+
+
+
+    
     return 0;
 }

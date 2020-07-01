@@ -21,60 +21,76 @@ using namespace std;
 #define fastIO ios_base::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #define pb push_back
 #define pii pair<int,int> 
-#define int128 __int128
-#define ff first
-#define ss second
+string ans;
+int a, b;
+bool done = false;
+int an = INT_MAX;
+map<array<int, 3>, bool> dp;
 
-int power(int x, int y, int p) 
-{ 
-    int res = 1; 
-    x = x % p;  
-    while (y > 0){ 
-        if (y & 1) 
-            res = (res*x) % p; 
-        y = y>>1; 
-        x = (x*x) % p; 
-    } 
-    return res; 
-} 
-int modInverse(int n, int p) 
-{ 
-    return power(n, p-2, p)%p; 
-}
-vector<int> tower;
-int calc(int n) {
-	return (n*(n+1))+((n*(n-1))/2);
+void calc(int x, int y, string s = "") {
+    
+    if(done) {
+        if(s.size() > an)
+        return;
+    }
+    if(x == a && y == b) {
+        if(an > s.size()) {
+            ans = s;
+            an = s.size();
+            done = true;    
+        }
+        return;
+    }
+    // if(s == "SEN") d2(x, y);
+    // d1(s);
+    int n = s.size();
+
+    if(dp[{x, y, n}])
+        return;
+    dp[{x, y, n}] = 1;
+    
+    int fac = 1 << (n);
+    if(n == 4)
+        return;
+    calc(x - fac, y, s + "W");
+    calc(x, y - fac, s + "S");
+    calc(x + fac, y, s + "E");
+    calc(x, y + fac, s + "N");
 }
 void solve(){
-	READ(n);
-	int count = 0;
-	while(n > 1) {
-		auto fooo = lower_bound(tower.begin(), tower.end(), n);
-		if(*fooo != n)
-			fooo--;
-		n -= *fooo;
-		count++;
-	}
-	cout << count << "\n";
-	
+    dp.clear();
+    cin >> a >> b;
+    ans = "";
+    done = false;
+    an = INT_MAX;
+    calc(0, 0);
+    if(done)
+        cout << ans << "\n";
+    else
+        cout << "Impossible\n";
 }
 
 int32_t main(){
-	#ifndef ONLINE_JUDGE
+    
+    #ifndef ONLINE_JUDGE
     // for getting input from input.txt
     freopen("input.txt", "r", stdin);
     // for writing output to output.txt
     //this can be opted out if you want to print the output to the sublime console
     freopen("output.txt", "w", stdout);
-	#endif
-	for(int n = 1; calc(n) <= 1e9; n++) {
-		tower.pb(calc(n));
-	}
-    
-	test solve();
+    #endif
 
-	#ifndef ONLINE_JUDGE
-    cout<<"\nTime Elapsed: " << 1.0*clock() / CLOCKS_PER_SEC << " sec\n";
-	#endif
+    int t;
+    cin >> t;
+    for(int i = 1; i <= t; i++) {
+        cout << "Case #"<< i << ": ";
+        solve();
+    }
+
+    
+
+
+
+    
     return 0;
 }

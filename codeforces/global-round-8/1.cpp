@@ -41,25 +41,23 @@ int modInverse(int n, int p)
 { 
     return power(n, p-2, p)%p; 
 }
-vector<int> tower;
-int calc(int n) {
-	return (n*(n+1))+((n*(n-1))/2);
-}
-void solve(){
-	READ(n);
-	int count = 0;
-	while(n > 1) {
-		auto fooo = lower_bound(tower.begin(), tower.end(), n);
-		if(*fooo != n)
-			fooo--;
-		n -= *fooo;
-		count++;
-	}
-	cout << count << "\n";
+
+void solve() {
+	READ3(a, b, n);
+    int val;
+    int moves = 0;
+    if(a < b)
+        swap(a, b);
+    for(;a <= n; moves++) {
+        val = a + b;
+        b = a;
+        a = val;
+    }
+    cout << moves << "\n";
 	
 }
 
-int32_t main(){
+int32_t main() {
 	#ifndef ONLINE_JUDGE
     // for getting input from input.txt
     freopen("input.txt", "r", stdin);
@@ -67,11 +65,11 @@ int32_t main(){
     //this can be opted out if you want to print the output to the sublime console
     freopen("output.txt", "w", stdout);
 	#endif
-	for(int n = 1; calc(n) <= 1e9; n++) {
-		tower.pb(calc(n));
-	}
-    
+    fastIO
+
 	test solve();
+
+
 
 	#ifndef ONLINE_JUDGE
     cout<<"\nTime Elapsed: " << 1.0*clock() / CLOCKS_PER_SEC << " sec\n";

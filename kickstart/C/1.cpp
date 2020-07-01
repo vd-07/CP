@@ -21,45 +21,26 @@ using namespace std;
 #define fastIO ios_base::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #define pb push_back
 #define pii pair<int,int> 
-#define int128 __int128
-#define ff first
-#define ss second
 
-int power(int x, int y, int p) 
-{ 
-    int res = 1; 
-    x = x % p;  
-    while (y > 0){ 
-        if (y & 1) 
-            res = (res*x) % p; 
-        y = y>>1; 
-        x = (x*x) % p; 
-    } 
-    return res; 
-} 
-int modInverse(int n, int p) 
-{ 
-    return power(n, p-2, p)%p; 
-}
-vector<int> tower;
-int calc(int n) {
-	return (n*(n+1))+((n*(n-1))/2);
-}
 void solve(){
-	READ(n);
-	int count = 0;
-	while(n > 1) {
-		auto fooo = lower_bound(tower.begin(), tower.end(), n);
-		if(*fooo != n)
-			fooo--;
-		n -= *fooo;
-		count++;
-	}
-	cout << count << "\n";
-	
+    READ2(n, k);
+    READA(a, n);
+    int count = 0, curr = 0;
+    for(int i = 0; i < n; i++) {
+    	if(a[i] == k) {
+    		int curr = 0;
+    		while(a[i + curr] == k - curr)
+    			curr++;
+    		if(k - curr == 0)
+    			count++;
+    		i += curr - 1;
+    	}
+    }
+    cout << count << "\n";
 }
 
 int32_t main(){
+	
 	#ifndef ONLINE_JUDGE
     // for getting input from input.txt
     freopen("input.txt", "r", stdin);
@@ -67,14 +48,18 @@ int32_t main(){
     //this can be opted out if you want to print the output to the sublime console
     freopen("output.txt", "w", stdout);
 	#endif
-	for(int n = 1; calc(n) <= 1e9; n++) {
-		tower.pb(calc(n));
-	}
-    
-	test solve();
 
-	#ifndef ONLINE_JUDGE
-    cout<<"\nTime Elapsed: " << 1.0*clock() / CLOCKS_PER_SEC << " sec\n";
-	#endif
+    int t;
+    cin >> t;
+    for(int i = 1; i <= t; i++) {
+    	cout << "Case #"<< i << ": ";
+    	solve();
+    }
+
+	
+
+
+
+	
     return 0;
 }

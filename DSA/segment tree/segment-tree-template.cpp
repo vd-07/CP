@@ -1,3 +1,18 @@
+struct SegmentTreeNode {
+int maxNum, secondMaxNum;
+void assignLeaf(int value) {
+    maxNum=value;
+    secondMaxNum=-1;
+  }
+void merge(SegmentTreeNode& left, SegmentTreeNode& right) {
+    maxNum=max(left.maxNum, right.maxNum);
+    secondMaxNum=min(max(left.maxNum, right.secondMaxNum), max(left.secondMaxNum, right.maxNum));
+  }
+int getValue() {
+    return maxNum+secondMaxNum;
+  }
+};
+//Segment Tree Template from : https://gist.github.com/kartikkukreja/2e7685e1fc8dbca0001b#file-segment-tree-template-cpp
 // T is the type of input array elements
 // V is the type of required aggregate statistic
 template<class T, class V>

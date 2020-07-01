@@ -41,25 +41,44 @@ int modInverse(int n, int p)
 { 
     return power(n, p-2, p)%p; 
 }
-vector<int> tower;
-int calc(int n) {
-	return (n*(n+1))+((n*(n-1))/2);
-}
-void solve(){
+
+
+
+void solve() {
 	READ(n);
-	int count = 0;
-	while(n > 1) {
-		auto fooo = lower_bound(tower.begin(), tower.end(), n);
-		if(*fooo != n)
-			fooo--;
-		n -= *fooo;
-		count++;
-	}
-	cout << count << "\n";
-	
+    READA(a, n);
+    vector<int> odds;
+    for(int i = 1; i < n; i += 2)
+        odds.push_back(a[i]);
+    int odd_sum = 0, even_sum = 0;
+    int start = 0, end = -1;
+    int mxsum = 0;
+    int pref[n], suff[n];
+    pref[0] = a[0];
+    for(int i = 1; i  < n; i++)
+        pref[i] = pref[i - 1] + a[i];
+    suff[n - 1] = a[n - 1];
+    
+    for(int i = 0; i < n; i += 2) {
+        mxsum += a[i];
+    }
+    for(int i = 0; i < n - 1; i += 2) {
+        odd_sum += a[i + 1];
+        even_sum += a[i];
+        if(even_sum > odd_sum) {
+            even_sum = 0;
+            odd_sum = 0;
+            start = i + 1;
+        }
+        else {            
+            end = i;
+            mxsum = max(mxsum, odd_sum + pref[start - 1] + suff[end + 1]);
+        }
+    }
+    cout << sum << '\n';
 }
 
-int32_t main(){
+int32_t main() {
 	#ifndef ONLINE_JUDGE
     // for getting input from input.txt
     freopen("input.txt", "r", stdin);
@@ -67,11 +86,10 @@ int32_t main(){
     //this can be opted out if you want to print the output to the sublime console
     freopen("output.txt", "w", stdout);
 	#endif
-	for(int n = 1; calc(n) <= 1e9; n++) {
-		tower.pb(calc(n));
-	}
-    
+    fastIO
 	test solve();
+
+
 
 	#ifndef ONLINE_JUDGE
     cout<<"\nTime Elapsed: " << 1.0*clock() / CLOCKS_PER_SEC << " sec\n";

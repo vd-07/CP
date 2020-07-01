@@ -43,7 +43,20 @@ int modInverse(int n, int p)
 }
 
 void solve(){
-	
+	READ(n);
+    READA(a, n);
+    unordered_set<int> s;
+    for(int i = 0; i < n; i++) {
+        int tes = i + a[i];
+        tes = (tes + n) % n;
+        tes %= n;
+        if(s.find(tes) != s.end()) {
+            cout << "NO\n";
+            return;
+        }
+        s.insert(tes);
+    }
+    cout << "YES\n";
 	
 }
 
